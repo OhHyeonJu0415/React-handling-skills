@@ -5,6 +5,9 @@ ch03. [컴포넌트](#ch03_컴포넌트)
 ch04. [이벤트 핸들링](#ch04_이벤트-핸들링)
 
 
+ch05. [ref](#ch05_ref)
+
+
 ---
 # ch03_컴포넌트
 
@@ -145,7 +148,7 @@ __props와 state__
             this.setState({message: e.target.value});
         };
         ```
-2. input 여러개 다루기
+2. 클래스형 컴포넌트에서 input 여러개 다루기
     - 객체 안에서 key를 [  ]로 감싸면 그 안에 넣은 레퍼런스가 가리키는 실제 값이 key 값으로 사용된다.
     - onChange 이벤트 핸들러에서 e.target.name은 해당 input의 name을 가르키기 때문에 이 값을 사용하여 state를 설정한다.
         ```javascript
@@ -154,3 +157,33 @@ __props와 state__
             });
           };
         ```
+        
+3. 함수형 컴포넌트에서 input 여러개 다루기
+    - input의 개수가 많아지면 e.tartget.name 활용하기
+    ```javascript
+    const [form, setForm] = useState({
+        //객체 형식으로 선언
+        username: "",
+        message: "",
+    });
+
+    const { username, message } = form; //비구조화 할당으로 값 추출
+
+    const onChange = (e) => {
+        const nextform = {
+              ...form, //기존 form 내용 복사한 뒤
+              [e.target.name]: e.target.value, //원하는 값 덮어 씌우기
+        };
+
+        setForm(nextform); //값 업데이트
+    };
+    
+
+
+### :bulb: 마무리
+1. 이벤트 핸들링은 순수JS, jQuery에서 다루는 이벤트와 비슷하다.
+2. 클래스형 컴포넌트로 할 수 있는 작업은 대부분 함수형 컴포넌트에서도 가능하다.
+3. 함수형 컴포넌트에서 useState, form 객체를 이용한 input 상태 관리는 __useReducer__ 와 __커스텀 Hooks__ 를 사용하면 더 편하게 작업 가능하다.
+
+---
+# ch05_ref
