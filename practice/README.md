@@ -102,7 +102,7 @@ __props와 state__
 # ch04_이벤트 핸들링
 
 
-### :pencil2: 이벤트 주의사항
+### :ballot_box_with_check: 이벤트 주의사항
 1. 이벤트 이름은 카멜표기법으로 작성한다.
     - `onclick` -> `onClick`
     - `onkeyup` -> `onKeyUp`
@@ -117,4 +117,40 @@ __props와 state__
         <MyComponent onClick={doSomething}/>
         ...
         <div onClick={this.props.onClick}></div>
+        ```
+
+### :pencil2: 단어 정리
+1. 합성이벤트(SyntheticEvent) : 이벤트 핸들링에 사용되는 e 혹은 event 객체
+    - 웹 브라우저의 네이티브 이벤트를 감싸는 객체 -> 모든 브라우저에서 이벤트를 동일하게 처리하기 위함
+    - 순수JS에서 HTML 이벤트를 다룰 때와 똑같이 사용
+    
+
+### :pencil: 문법 정리
+1. Property Initializer Syntax를 사용한 메서드 작성
+    - 클래스형 컴포넌트에서 메서드 바인딩은 생성자 메서드에서 하는 것이 정석이다.
+        ```javascript
+        constructor(props) {
+            super(props);
+            this.handleChange = this.handleChange.bind(this);
+        }
+
+        //onChange 이벤트 전달 함수
+        handleChange(e) {
+            this.setState({ message: e.target.value}); 
+        }
+        ```
+    - 바벨의 transform-class-properties 문법을 사용하면 화살표 함수 형태로 간단하게 메서드를 정의할 수 있다.
+        ```javascript
+        handleChange = (e) => {
+            this.setState({message: e.target.value});
+        };
+        ```
+2. input 여러개 다루기
+    - 객체 안에서 key를 [  ]로 감싸면 그 안에 넣은 레퍼런스가 가리키는 실제 값이 key 값으로 사용된다.
+    - onChange 이벤트 핸들러에서 e.target.name은 해당 input의 name을 가르키기 때문에 이 값을 사용하여 state를 설정한다.
+        ```javascript
+          handleChange = (e) => {
+              [e.target.name]: e.target.value,
+            });
+          };
         ```
