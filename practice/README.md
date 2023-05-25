@@ -100,3 +100,21 @@ __props와 state__
 
 
 # ch04_이벤트 핸들링
+
+
+### :pencil2: 이벤트 주의사항
+1. 이벤트 이름은 카멜표기법으로 작성한다.
+    - `onclick` -> `onClick`
+    - `onkeyup` -> `onKeyUp`
+    
+2. 이벤트에 전달하는 것은 자바스크립트 코드가 아닌 함수 형태의 값이다.
+    - 함수를 바로 만들어 전달해도 되고, 렌더링 부분 외부에 미리 만들어서 사용해도 된다.
+    
+3. DOM 요소에만 이벤트를 설정할 수 있다.
+    - `div`, `span`, `button`, `input`, `form` 등의 DOM 요소에만 이벤트를 설정할 수 있다.
+    - 아래와 같이 직접 만든 컴포넌트에 이벤트 값을 설정하면 이름이 onClick인 props를 전달한다. 전달받은 props를 컴포넌트 내부의 DOM 이벤트로 설정할 수 있다.
+        ```javascript
+        <MyComponent onClick={doSomething}/>
+        ...
+        <div onClick={this.props.onClick}></div>
+        ```
