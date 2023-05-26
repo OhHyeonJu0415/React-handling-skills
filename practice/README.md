@@ -276,7 +276,7 @@ __props와 state__
     ```javascript
     arr.map(callback,[thisArg])
     ```
-    - callback : 새로운 배열 오소 생성 함수
+    - callback : 새로운 배열 요소 생성 함수
         - currentValue : 현재 처리하고 있는 요소
         - index : 현재 처리하고 있는 요소의 index 값
         - array : 현재 처리하고 있는 요소의 원본 배열
