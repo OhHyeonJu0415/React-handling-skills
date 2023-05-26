@@ -10,6 +10,9 @@ ch05. [ref](#ch05_ref)
 
 ch06. [컴포넌트 반복](#ch06_컴포넌트-반복)
 
+
+ch07. [컴포넌트의 라이프사이클 메서드](#ch07_컴포넌트의-라이프사이클-메서드)
+
 ---
 # ch03_컴포넌트
 
@@ -348,6 +351,74 @@ __props와 state__
 2. 상태 안에서 배열을 변형할 때는 배열에 직접 접근해서 수정하지 않는다.
 3. concat, filter 등의 배열 내장 함수를 이용해 새로운 배열을 만들고 이를 새로운 상태로 설정해준다. -> 불변성 유지
 
+
+
+---
+# ch07_컴포넌트의 라이프사이클 메서드 
+
+        
+
+### :mag: 개념 정리
+1. __라이프사이클(수명 주기)__
+    - 모든 리액트 컴포넌트에 존재한다.
+    - 컴포넌트의 수명은 페이지에 렌더링되기 전인 준비 과정 ~ 페이지에서 사라질 때 끝난다.
+    - 클래스형 컴포넌트에서만 사용 가능하다.
+    - 함수형 컴포넌트에서는 비슷한 기능을 Hooks를 통해 작업할 수 있다.
+    - 마운트(mount) / 업데이트(update) / 언마운트(unmount) 카테고리로 나뉜다.
+        
+2. __마운트(mount)__
+    - DOM이 생성되고 웹 브라우저 상에 나타나는 것
+    - 메서드 호출 순서
+        1. `constructor(props)`
+            - 컴포넌트를 새로 만들때마다 호출되는 클래스 생성자 메서드
+            - 초기 state를 정할 수 있다.
+        2. `getDerivedStateFromProps(nextProps, prevState)`
+            - props로 받아온 값을 state에 넣을 때 사용하는 메서드
+            - 컴포넌트가 마운트, 업데이트 시작하기 전에 호출된다.
+        3. `render()`
+            - UI를 렌더링 하는 메서드
+            - `this.props`와 `this.state`에 접근할 수 있고, 리액트 요소를 반환한다.
+            - `null`이나 `false` 값을 반환하면 아무것도 보여주지 않는다.
+            - DOM 접근, state 변화를 줄 때 접근할 수 없다. -> `compoenetDidMount`에서 처리할 것!
+        4. `componentDidMount()`
+            - 컴포넌트가 첫 렌더링을 마친 후 호출하는 메서드
+            - JS 라이브러리나 프레임워크 함수를 호출하거나 `setTimeout`, `setInterval`, 네트워크 요청 같은 비동기 작업을 처리한다.
+
+3. __업데이트(update)__
+    - 컴포넌트는 다음과 같은 네 가지 경우에 업데이트 한다.
+        - 부모 컴포넌트에서 넘겨주는 props가 바뀔 때
+        - 컴포넌트 자신의 state가 setState를 통해 바뀔 때
+        - 부모 컴포넌트가 리렌더링 될 때 : props나 state가 바뀌지 않아도 자식 컴포넌트 또한 리렌더링 된다.
+        - `this.forceUpdate`로 강제로 렌더링을 트리거할 때
+    - 메서드 호출 순서
+        1. `getDerivedStateFromProps(nextProps, prevState)`
+            - props의 변화에 따라 state 값에도 변화를 주고 싶을 때 사용한다.
+        2. `shouldComponentUpdate(nextProps, nextState)`
+            - 컴포넌트가 리렌더링을 할지 말지 결정하는 메서드
+            - 반드시 true(실행) 혹은 false(작업 중지)를 반환해야 한다.
+            - 특정 함수에서 `this.forceUpdate()` 함수를 호출하면 이 과정을 생략하고 `render()`를 호출한다.
+            - 현재 값 접근 : `this.props`, `this.state`
+            - 새로 설정될 값 접근 : `nextProps`, `nextState`
+            - 리렌더링 방지로 프로젝트 성능 최적화 가능
+        3. `render()`
+            - 컴포넌트 리렌더링
+        4. `getSnapshotBeforeUpdate(prevProps, prevState)`
+            - 컴포넌트 변화를 DOM에 반영하기 바로 직전에 호출되는 메서드
+            - 반환 값은 `componentDidUpdate`에서 세 번째 파라미터인 `snapshot` 값으로 전달하고 업데이트 직전 값을 참고할 때 활용 (_예) 스크롤바 위치 유지_)
+        5. `componentDidUpdate(prevProps, prevState, snapshot)`
+            - 리렌더링을 완료한 후 호출되는 메서드 
+            - DOM 관련 처리가 가능하다.
+            - 이전 값 접근 : `prevProps`, `prevState`
+            - `getSnapshotBeforeUpdate`에서 반환한 값이 있다면 snapshot으로 값을 전달 받을 수 있다.
+
+4. __언마운트(unmount)__
+    - 컴포넌트를 DOM에서 제거하는 것
+    - 메서드 호출
+        1. componentWillUnmount
+            - 컴포넌트가 웹 브라우저상에서 사라지기 전에 호출되는 메서드
+            - `componentDidMount`에서 등록한 이벤트, 타이머, 직접 생성한 DOM이 있다면 여기서 제거 작업을 해야한다.
+
+        
 
 
 
