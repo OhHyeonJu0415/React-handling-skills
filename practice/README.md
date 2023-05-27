@@ -295,7 +295,7 @@ __props와 state__
     - 함수의 인자에 분류하고 싶은 조건을 반환하는 함수 넣기
         ```javascript
        const numbers = [1, 2, 3];
-       cont biggerThanTwo = numbers.filter(number => number > 2); //3
+       const biggerThanTwo = numbers.filter(number => number > 2); //3
         ```
     
 3. 데이터 배열을 컴포넌트 배열로 변환하기
