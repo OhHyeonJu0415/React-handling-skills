@@ -216,7 +216,7 @@ __props와 state__
 
     2) createRef를 통한 ref 설정 : 리액트 내장 함수 createRef 사용
         - 컴포넌트 내부에서 멤버 변수로 `React.createRef()` 담기
-        - 해당 멤버 변수를 ref를 달고자 하는 요소에 ref props노 넣어주기
+        - 해당 멤버 변수를 ref를 달고자 하는 요소에 ref props로 넣어주기
         - `this.input.current`로 조회 가능
             ```javascript
             class CreateRefSample extends Component {
