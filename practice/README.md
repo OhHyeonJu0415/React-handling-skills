@@ -13,6 +13,9 @@ ch06. [컴포넌트 반복](#ch06_컴포넌트-반복)
 
 ch07. [컴포넌트의 라이프사이클 메서드](#ch07_컴포넌트의-라이프사이클-메서드)
 
+
+ch08. [Hooks](#ch08_hooks)
+
 ---
 # ch03_컴포넌트
 
@@ -459,7 +462,64 @@ __props와 state__
 
 
 
----       
+---
+# ch08_Hooks
+useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트에서 할 수 없었던 다양한 작업을 할 수 있게 해준다.
+
+
+### :pencil: 문법 정리
+1. `useState` : 가변적인 상태 관리
+    - 파라미터 값 : 상태의 기본값
+    - 반환된 배열의 첫 번째 원소 : 상태 값
+    - 반환된 배열의 두 번째 원소 : 상태 설정 함수
+    - 하나의 상태 값만 관리 가능
+        ```javascript
+        const [value, setValue] = useState(0);
+        ```
+2. `useEffect` : 렌더링될 때마다 특정 작업 수행
+    - 기본적으로 렌더링 되고 난 직후마다 실행되고 두 번째 파라미터 배열에 무엇을 넣는지에 따라 실행 조건 변경
+    - 클래스형 컴포넌트의 `componentDidMount`, `componentDidUpdate`를 합친 형태
+        ```javascript
+        useEffect(() => {
+            console.log("렌더링 완료");
+        });
+        ```
+    - 마운트될 때만 실행하기
+        - 화면에 맨 처음 렌더링될 때만 실행, 업데이트 때는 실행하지 않음
+        - 두 번째 파라미터로 비어 있는 배열 넣어주기
+             ```javascript
+            useEffect(() => {
+                console.log("렌더링 완료");
+            }, []);
+            ```
+    - 특정 값이 업데이트될 때만 실행하기
+        - 두 번째 파라미터로 전달되는 배열 안에 검사하고 싶은 값 넣기
+        - useState를 통해 관리하고 있는 상태나 props로 전달받은 값을 넣어도 된다.
+             ```javascript
+            useEffect(() => {
+                console.log("렌더링 완료");
+            }, [name]);
+            ```
+    - 뒷정리하기 : 언마운트되기 전이나 업데이트되기 직전에 작업 수행하기
+        - 컴포넌트가 나타날 때 콘솔에 "effect"가 나타난다.
+        - 컴포넌트가 사라질 때 "cleanup"이 나타난다.
+        - 뒷정리 함수가 호출될 때는 업데이트되기 직전의 값을 보여준다.
+        - 언마운트될 때만 뒷정리 함수 호출하기 : 두 번째 파라미터 값에 빈 배열 넣기
+            ```javascript
+            useEffect(() => {
+                console.log("effect");
+                console.log(name);
+
+                return () => {
+                  //호출시 업데이트되기 직전 값 보여줌
+                  console.log("cleanup");
+                  console.log(name);
+                };
+             }, [name]);
+             ```
+
+
+
 
 
 
