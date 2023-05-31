@@ -4,7 +4,8 @@ import InfoUseState from "./InfoUseState"; //ch08.1.1 state 여러번 사용하�
 import UseEffect from "./UseEffect"; //ch08.2 useEffect
 import UseReducer from "./UseReducer"; //ch08.3 useReducer
 import InfoUseReducer from "./InfoUseReducer"; //ch08.3.2 useReducer 인풋상태 관리하기
-import UseMemo from "./UseMemo"; //8.4 useMemo
+import UseMemo from "./UseMemo"; //ch08.4 useMemo
+import UseCallback from "./UseCallback"; //ch08.5 useCallback
 
 const App = () => {
   //   return <UseState />; //ch08.1
@@ -29,7 +30,8 @@ const App = () => {
 
   //   return <UseReducer />; //ch08.3
   //   return <InfoUseReducer />; //ch08.3.2
-  return <UseMemo />; //ch08.4
+  //   return <UseMemo />; //ch08.4
+  return <UseCallback />; //ch08.5
 };
 
 export default App;
