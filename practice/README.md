@@ -500,6 +500,10 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
     - `useMemo`로 함수를 반환하는 상황에서 편리하게 사용 가능하다.
     - 함수 재사용시 사용한다.
 
+6. `useRef`
+    - 함수형 컴포넌트에서 ref를 쉽게 사용할 수 있도록 해주는 Hook
+    - ref를 설정하면 useRef를 통해 만든 객체 안의 current 값이 실제 엘리먼트를 가리킨다.
+
 
 
 ### :pencil: 문법 정리
@@ -622,8 +626,29 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
             setNumber("");
         }, [number, list]); //number,list 값이 바뀌었을때만 함수 생성
         ```
-
-
+6. `useRef`
+    - ref를 설정하면 useRef를 통해 만든 객체 안의 current 값이 실제 엘리먼트를 가리킨다.
+        ```javascript
+        const inputEl = useRef(null); //지역 변수에 담기
+        ```
+        ```javascript
+        const onInsert = useCallback(() => {
+            ...
+            inputEl.current.focus(); //current로 접근
+        }, []);
+        ```
+        ```javascript
+        <input value={number} onChange={onChange} ref={inputEl} /> //ref 설정
+        ```
+    - 컴포넌트 로컬 변수를 사용할 때도 활용가능 (ref 안의 값이 바뀌어도 컴포넌트가 렌더링 되지 않는다.)
+        ```javascript
+        const RefSample = () => {
+            const id = useRef(1);
+            const setId = (n) => { id.current = n; }
+            const printId = () => { console.log(id.current); }
+            return ( ... )
+        }
+        ```
 
 
 
