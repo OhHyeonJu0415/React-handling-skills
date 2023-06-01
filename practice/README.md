@@ -16,6 +16,9 @@ ch07. [컴포넌트의 라이프사이클 메서드](#ch07_컴포넌트의-라�
 
 ch08. [Hooks](#ch08_hooks)
 
+
+ch09. [컴포넌트 스타일링](#ch09_컴포넌트-스타일링)
+
 ---
 # ch03_컴포넌트
 
@@ -508,6 +511,7 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
     - 컴포넌트에서 비슷한 기능을 공유할 경우 로직을 따로 분리해 재사용할 수 있다. (_practice/ch08/useInputs.js와 practice/ch08/InfoCustomHook.js 참고)
 
 
+
 ### :pencil: 문법 정리
 1. `useState`
     - 함수의 파라미터 값 : 상태의 기본값
@@ -661,8 +665,85 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
 
 ---
 
+# ch09_컴포넌트 스타일링
 
 
+
+### :mag: 개념 정리
+1. 스타일링 방식
+    - __일반 CSS(Cascading Style Sheet)__ : 가장 기본적인 방식
+    - __Sass(Syntactically Awesome Style Sheets)__ 
+        - 자주 사용되는 CSS 전처리기로 복잡한 작업을 쉽게 할 수 있도록 해준다.
+        - 스타일 코드의 재활용성을 높여준다.
+        - 코드의 가독성이 높아서 유지 보수에 용이하다.
+        - 확장된 CSS 문법을 사용한다.
+    - __CSS Module__ : CSS 클래스 이름과 절대 충돌하지 않도록 파일마다 고유한 이름을 자동으로 생성해 주는 옵션
+    - __styled-components__ : 스타일을 자바스크립트 파일에 내장한즌 방식, 스타일을 작성하는 동시에 해당 스타일이 적용된 컴포넌트를 만들 수 있다.
+
+2. 이름 짓는 규칙
+    - 컴포넌트 이름-클래스 형태 (_App-header_)
+    - BEM 네이밍 : 해당 클래스가 어디에서 어떤 용도로 사용되는지 명확하게 작성 (_card__title-primary_)
+
+
+
+
+
+### :pencil: 문법 정리
+1. Sass
+    - .sass와 .scss의 주요 차이점 : 중괄호와 세미콜론의 사용 여부 (보통 .scss가 더 자주 사용된다.)
+        ```sass
+        //.sass
+        $font-stack: Helvetica, sans-serif
+        $primary-color: black
+        
+        body
+            font: 100% $font-stack
+            color: $primary-color
+        ```
+         ```scss
+        //.scss
+        $font-stack: Helvetica, sans-serif;
+        $primary-color: black;
+        
+        body {
+            font: 100% $font-stack;
+            color: $primary-color;
+        }
+        ```
+    - 변수 및 믹스인은 utils 함수로 따로 분리하기
+        ```scss
+        // styles/utils.scss
+        
+        $red: #fa5252; //변수 사용하기
+        $orange: #fd7e14;
+
+        @mixin square($size) {
+          //믹스인 만들기(재사용 되는 스타일 블록을 함수처럼 사용 가능)
+          $calculated: 32px * $size;
+          width: $calculated;
+          height: $calculated;
+        }
+        ```
+    - 기본 사용방법
+        ```scss
+        @import "./styles/utils.scss"; //분리한 utils 함수 불러오기
+        
+        .SassComponent {
+              display: flex;
+              .box {
+                  //일반 CSS에서는 .SassComponent .box 와 같다
+                  background: red;
+                  cursor: pointer;
+                  transition: all 0.3s ease-in;
+
+                  &.red {
+                      //.red 클래스가 .box 클래스와 함께 사용되었을때
+                      background: $red;
+                      @include square(1);
+                  }
+              }
+         }
+        ```
 
 
 
