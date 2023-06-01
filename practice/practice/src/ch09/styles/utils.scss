@@ -1,0 +1,15 @@
+//변수 사용하기
+$red: #fa5252;
+$orange: #fd7e14;
+$yellow: #fcc419;
+$green: #4ec007;
+$blue: #14a8fd;
+$indigo: #5c7cfa;
+$violet: #7950f2;
+
+@mixin square($size) {
+  //믹스인 만들기(재사용 되는 스타일 블록을 함수처럼 사용 가능)
+  $calculated: 32px * $size;
+  width: $calculated;
+  height: $calculated;
+}
