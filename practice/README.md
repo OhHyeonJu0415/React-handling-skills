@@ -677,7 +677,9 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
         - 스타일 코드의 재활용성을 높여준다.
         - 코드의 가독성이 높아서 유지 보수에 용이하다.
         - 확장된 CSS 문법을 사용한다.
-    - __CSS Module__ : CSS 클래스 이름과 절대 충돌하지 않도록 파일마다 고유한 이름을 자동으로 생성해 주는 옵션
+    - __CSS Module__ 
+        - 클래스 이름을 고유한 값 형태로 자동으로 만들어서 클래스 이름이 중첩되는 현상을 방지
+        - 스타일을 직접 불러온 컴포넌트 내부에서만 작동하기 때문에 흔히 사용하는 단어로 이름을 지어도 된다.
     - __styled-components__ : 스타일을 자바스크립트 파일에 내장한즌 방식, 스타일을 작성하는 동시에 해당 스타일이 적용된 컴포넌트를 만들 수 있다.
 
 2. 이름 짓는 규칙
@@ -689,7 +691,7 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
 
 
 ### :pencil: 문법 정리
-1. Sass
+1. __Sass__
     - .sass와 .scss의 주요 차이점 : 중괄호와 세미콜론의 사용 여부 (보통 .scss가 더 자주 사용된다.)
         ```sass
         //.sass
@@ -744,6 +746,40 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
               }
          }
         ```
+2. __CSS Module__
+    1. 클래스 이름 사용하기
+        - `:global` 클래스의 경우 평상시처럼 문자열로 넣기
+        ```javascript
+        import styles from "./CSSModule.module.css";
+        ```
+        ```javascript
+        className={styles.[클래스 이름]}
+        ```
+    2. 클래스 이름 여러개 사용하기
+        1. 템플릿 리터럴 사용하기 : `<div className={`${styles.wrapper} ${styles.inverted}`}>`
+        2. 템플릿 리터럴 사용하지 않기 : `<div className={[styles.wrapper, styles.inverted].join(' ')}>`
+
+    3. classnames 라이브러리
+        - CSS Module에서 함께 사용하면 여러 클래스를 적용할 때 편리하다.
+        - 조건부로 클래스를 설정할 때 편리하다.
+        - 기본 사용법
+            ```javascript
+            import classNames from 'classnames';
+            
+            classNaems('one', 'two') //'one two'
+            classNames('one', { two: true }); //'one two'
+            classNames('one', { two: flase }); //'one'
+            classNames('one', ['two', 'three']); //'one two three'
+            
+            const myClass = 'hello';
+            classNemas('one', myClass, { world: true }); //'one hello world'
+            ```
+        - bind 함수 적용 : 사전에 미리 styles에서 받아 온 후 사용하게끔 설정해 두고 `cx('클래스 이름', '클래스 이름2')` 형태로 사용 가능
+
+
+
+
+
 
 
 
