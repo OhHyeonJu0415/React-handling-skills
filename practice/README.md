@@ -868,8 +868,65 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
         <Box color="black">(...)</Box>
         ````
         
+    4. props에 따른 조건부 스타일링
+        - 스타일 코드 여러 줄을 props에 따라 넣어주어야 할 때는 반드시 CSS로 감싸주기
+        - 바로 문자열 형태로 넣어도 작동은 하지만, Tagged 템플릿 리터럴이 아니기 때문에 함수를 받아 사용하지 못하고 props 값을 제대로 사용하지 못한다.
+            ````javascript
+            ${(props) =>
+                props.inverted &&
+                css`
+                  background: none;
+                  border: 2px solid white;
+                  color: white;
+                  &:hover {
+                    background: white;
+                    color: black;
+                  }
+                `}; // inverted 값이 true일 때 특정 스타일 부여
+            ````
+    5. 반응형 디자인
+        1. 일반 CSS처럼 사용하기 : media query
+            ````css
+            width: 1024px;
+          
+            @media (max-width: 1024px) {
+                width: 768px;
+            }
+            @media (max-width: 768px) {
+                width: 100%;
+            }
+            ````
+        2. styled-component에서 제공하는 유틸 함수 사용하기
+            ````javascript
+            //styled-component 유틸 함수 사용하기
+            const sizes = {
+              desktop: 1024,
+              tablet: 768,
+            };
+
+            //위 size 객체에 다라 자동으로 media 쿼리 함수를 만들어준다
+            const media = Object.keys(sizes).reduce((acc, label) => {
+              acc[label] = (...args) => css`
+                @media (max-width: ${sizes[label] / 16}em) {
+                  ${css(...args)}
+                }
+              `;
+
+              return acc;
+            }, {});
+            ````
+            ````css
+            ${media.desktop`width:768px`}
+            ${media.tablet`width:100%`}
+            ````
+ 
+        
+
+### :bulb: 마무리
+1. 일반 CSS, SCSS, CSS Module, styled-component 등의 컴포넌트 스타일링 방식 중 알맞은 방식을 선택하여 
 
 
+---
 
 
 
