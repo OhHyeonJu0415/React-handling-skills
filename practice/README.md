@@ -30,25 +30,25 @@ ch09. [컴포넌트 스타일링](#ch09_컴포넌트-스타일링)
     
 
 ### :pencil: 문법 정리
-1. 비구조화 할당
-    - 객체
+1. __비구조화 할당__
+    1. 객체
         ```javascript
         const { name, favoriteNumber, children } = props;
         ```
-    - 배열
+    2. 배열
         ```javascript
         const array =[1, 2];
         const [one, two] = array;
         ```
 
 
-2. 태그 사이의 내용을 보여주는 children : MyComponent 내부에서 보여주려면 `{props.children}`을 사용한다.
+2. __태그 사이의 내용을 보여주는 children__ : MyComponent 내부에서 보여주려면 `{props.children}`을 사용한다.
     ```javascript
     return <MyComponent name="바보">현주</MyComponent>;
     ```
     
-3. defaultProps : props 값을 따로 지정하지 않았을 때 보여 줄 기본값 설정
-      ```javascript
+3. __defaultProps__ : props 값을 따로 지정하지 않았을 때 보여 줄 기본값 설정
+    ```javascript
       const MyComponent = (props) => {
         return <div>내 이름은 {props.name}다!!</div>;
       };
@@ -58,7 +58,7 @@ ch09. [컴포넌트 스타일링](#ch09_컴포넌트-스타일링)
       };
       ```
 
-4. propTypes를 통한 props 검증 : props 타입 지정, 필수 요소 등
+4. __propTypes를 통한 props 검증__ : props 타입 지정, 필수 요소 등
     ```javascript
     import PropTypes from "prop-types";
     ```
@@ -69,28 +69,28 @@ ch09. [컴포넌트 스타일링](#ch09_컴포넌트-스타일링)
     };
     ```
     
-5. 클래스형 컴포넌트에서 state 설정하기
-    - constrctor 메서드에서 state 설정
-     ```javascript
-      constructor(props) {
-          super(props);
-          this.state = {
-            //state 초깃값 설정
+5. __클래스형 컴포넌트에서 state 설정하기__
+    1. constrctor 메서드에서 state 설정
+         ```javascript
+          constructor(props) {
+              super(props);
+              this.state = {
+                //state 초깃값 설정
+                number: 0,
+                fixNumber: 0,
+          };
+        }
+        ```
+    
+    2. constrctor 메서드를 사용하지 않고 state 설정
+        ```javascript
+         state = {
             number: 0,
             fixNumber: 0,
-      };
-    }
-    ```
+        };
+        ```
     
-    - constrctor 메서드를 사용하지 않고 state 설정
-    ```javascript
-     state = {
-        number: 0,
-        fixNumber: 0,
-    };
-    ```
-    
-6. 함수형 컴포넌트에서 useState 사용하기 : 세터(Setter) 함수 사용, 배열 비구조화 할당 사용
+6. __함수형 컴포넌트에서 useState 사용하기__ : 세터(Setter) 함수 사용, 배열 비구조화 할당 사용
     ```javascript
     const [message, setMessage] = useState("");
     const onClickEnter = () => setMessage("안녕하세요!");
@@ -140,7 +140,7 @@ __props와 state__
     
 
 ### :pencil: 문법 정리
-1. Property Initializer Syntax를 사용한 메서드 작성
+1. __Property Initializer Syntax를 사용한 메서드 작성__
     - 클래스형 컴포넌트에서 메서드 바인딩은 생성자 메서드에서 하는 것이 정석이다.
         ```javascript
         constructor(props) {
@@ -159,7 +159,8 @@ __props와 state__
             this.setState({message: e.target.value});
         };
         ```
-2. 클래스형 컴포넌트에서 input 여러개 다루기
+        
+2. __클래스형 컴포넌트에서 input 여러개 다루기__
     - 객체 안에서 key를 [  ]로 감싸면 그 안에 넣은 레퍼런스가 가리키는 실제 값이 key 값으로 사용된다.
     - onChange 이벤트 핸들러에서 e.target.name은 해당 input의 name을 가르키기 때문에 이 값을 사용하여 state를 설정한다.
         ```javascript
@@ -169,8 +170,7 @@ __props와 state__
           };
         ```
         
-3. 함수형 컴포넌트에서 input 여러개 다루기
-    - input의 개수가 많아지면 e.tartget.name 활용하기
+3. __함수형 컴포넌트에서 input 여러개 다루기__ : `e.tartget.name` 활용하기
     ```javascript
     const [form, setForm] = useState({
         //객체 형식으로 선언
@@ -188,7 +188,7 @@ __props와 state__
 
         setForm(nextform); //값 업데이트
     };
-    
+    ```
 
 
 ### :bulb: 마무리
@@ -212,7 +212,7 @@ __props와 state__
     
 
 ### :pencil: 문법 정리
-1. ref를 사용하는 두 가지 방법
+1. __ref를 사용하는 두 가지 방법__
     1) 콜백 함수를 통한 ref 설정 : 가장 기본적인 방법
         - `this.input`은 `input` 요소의 DOM을 가리킨다.
         - DOM 타입과 관계없이 `this.superman = ref`처럼 마음대로 이름을 지정할 수 있다.
@@ -242,7 +242,7 @@ __props와 state__
             }
             ```
             
-2. 컴포넌트에 ref 달기
+2. __컴포넌트에 ref 달기__
     - 컴포넌트 내부에 있는 DOM을 컴포넌트 외부에서 사용하기 위함
     - 내부 메서드 및 멤버 변수에도 접근 가능
         ```javascript
@@ -281,7 +281,7 @@ __props와 state__
     
 
 ### :pencil: 문법 정리
-1. `map()` 함수 : 기존 배열로 새로운 배열을 만드는 함수
+1. __`map()` 함수__ : 기존 배열로 새로운 배열을 만드는 함수
     ```javascript
     arr.map(callback,[thisArg])
     ```
@@ -297,14 +297,14 @@ __props와 state__
     const result = numbers.map(num => num * num); //1,4,9
     ```
     
-2. `filter()` 함수 : 배열의 특정 항목을 지우는 함수
+2. __`filter()` 함수__ : 배열의 특정 항목을 지우는 함수
     - 함수의 인자에 분류하고 싶은 조건을 반환하는 함수 넣기
         ```javascript
        const numbers = [1, 2, 3];
        const biggerThanTwo = numbers.filter(number => number > 2); //3
         ```
     
-3. 데이터 배열을 컴포넌트 배열로 변환하기
+3. __데이터 배열을 컴포넌트 배열로 변환하기__
     - 문자열로 된 배열을 선언한다.
     - 배열 값을 사용하여 `<li>...<li>` JSX 코드로 새로운 배열을 만든다.
         ```javascript
@@ -313,7 +313,8 @@ __props와 state__
 
         return <ul>{nameList}</ul>;
         ```
-4. 동적인 배열 렌더링하기
+        
+4. __동적인 배열 렌더링하기__
     1. 초기 상태 설정
         - 데이터 배열
         - 텍스트 입력
@@ -421,10 +422,9 @@ __props와 state__
 
 4. __언마운트(unmount)__
     - 컴포넌트를 DOM에서 제거하는 것
-    - 메서드 호출
-        1. `componentWillUnmount()`
-            - 컴포넌트가 웹 브라우저상에서 사라지기 전에 호출되는 메서드
-            - `componentDidMount`에서 등록한 이벤트, 타이머, 직접 생성한 DOM이 있다면 여기서 제거 작업을 해야한다.
+    - 메서드 호출 :  `componentWillUnmount()`
+        - 컴포넌트가 웹 브라우저상에서 사라지기 전에 호출되는 메서드
+        - `componentDidMount`에서 등록한 이벤트, 타이머, 직접 생성한 DOM이 있다면 여기서 제거 작업을 해야한다.
 
 5. __에러 잡아내기__        
     `componentDidCatch(error, info)`
@@ -471,18 +471,18 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
 
 
 ### :mag: 개념 정리
-1. `useState`
+1. __`useState`__
     - 가장 기본적인 Hook
     - 함수형 컴포넌트에서도 가변적인 상태를 지닐 수 있게 해준다.
     - 상태 설정 함수에 파라미터를 넣어서 호출하면 전달받은 파라미터 값으로 바뀌고 컴포넌트가 리렌더링 된다.
     - 하나의 상태 값만 관리 가능하다.
 
-2. `useEffect`
+2. __`useEffect`__
     - 컴포넌트가 렌더링될 때마다 특정 작업을 수행하도록 설정하는 Hook
     - 클래스형 컴포넌트의 `componentDidMount`, `componentDidUpdate`를 합친 형태
     - 기본적으로 렌더링 되고 난 직후마다 실행되고 두 번째 파라미터 배열에 무엇을 넣는지에 따라 실행 조건 변경
     
-3. `useReducer`
+3. __`useReducer`__
     - `useState`보다 더 다양한 컴포넌트 상황에 따라 다양한 상태를 다른 값으로 업데이트 할 때 사용하는 Hook
     - 현재 상태, 업데이트에 필요한 정보를 담은 액션(action) 값을 전달받아 새로운 상태를 반환하는 함수
     - 새로운 상태를 만들 때 반드시 __불변성__ 을 유지할 것!
@@ -491,42 +491,43 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
     - 컴포넌트 __업데이트 로직을 컴포넌트 바깥으로 빼낼 수 있다는 것이__ 가장 큰 장점이다.
       (_리듀서(reduecer)의 자세한 개념은 ch17 참고_)
 
-4. `useMemo`
+4. __`useMemo`__
     - 함수형 컴포넌트 내부에서 발생하는 연산을 최적화할 수 있다.
     - 렌더링하는 과정에서 특정 값이 바뀔때만 연산을 수행하고, 원하는 값이 바뀌지 않았으면 이전 연산 결과값을 다시 사용한다.
       ( _예 : 숫자들의 평균을 보여주는 컴포넌트에서 인풋 내용이 수정될 때도 평균값 함수가 호출된다. 인풋 내용이 바뀔때는 평균값을 다시 계산할 필요가 없기 때문에 렌더링할 때마다 계산하는 것은 낭비다._)
     - 숫자, 문자열, 객체처럼 일반 값을 재사용할 때 사용한다.
 
-5. `useCallback`
+5. __`useCallback`__
     - 이벤트 핸들러 함수를 필요할 때만 생성할 수 있는 Hook
     - 주로 렌더링 성능 최적화에 사용한다.
     - `useMemo`로 함수를 반환하는 상황에서 편리하게 사용 가능하다.
     - 함수 재사용시 사용한다.
 
-6. `useRef`
+6. __`useRef`__
     - 함수형 컴포넌트에서 ref를 쉽게 사용할 수 있도록 해주는 Hook
     - ref를 설정하면 useRef를 통해 만든 객체 안의 current 값이 실제 엘리먼트를 가리킨다.
 
-7. 커스텀 Hooks 만들기
+7. __커스텀 Hooks 만들기__
     - 컴포넌트에서 비슷한 기능을 공유할 경우 로직을 따로 분리해 재사용할 수 있다. (_practice/ch08/useInputs.js와 practice/ch08/InfoCustomHook.js 참고)
 
 
 
 ### :pencil: 문법 정리
-1. `useState`
+1. __`useState`__
     - 함수의 파라미터 값 : 상태의 기본값
     - 반환된 배열의 첫 번째 원소(_value_) : 상태 값
     - 반환된 배열의 두 번째 원소(_setValue_) : 상태 설정 함수
         ```javascript
         const [value, setValue] = useState(0);
         ```
-2. `useEffect`
+        
+2. __`useEffect`__
     ```javascript
         useEffect(() => {
             console.log("렌더링 완료");
         });
      ```
-    - 마운트될 때만 실행하기
+    1. 마운트될 때만 실행하기
         - 화면에 맨 처음 렌더링될 때만 실행, 업데이트 때는 실행하지 않음
         - 두 번째 파라미터로 비어 있는 배열 넣어주기
              ```javascript
@@ -534,7 +535,7 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
                 console.log("렌더링 완료");
             }, []);
             ```
-    - 특정 값이 업데이트될 때만 실행하기
+    2. 특정 값이 업데이트될 때만 실행하기
         - 두 번째 파라미터로 전달되는 배열 안에 검사하고 싶은 값 넣기
         - useState를 통해 관리하고 있는 상태나 props로 전달받은 값을 넣어도 된다.
              ```javascript
@@ -542,7 +543,7 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
                 console.log("렌더링 완료");
             }, [name]);
             ```
-    - 뒷정리하기 : 언마운트되기 전이나 업데이트되기 직전에 작업 수행하기
+    3. 뒷정리하기 : 언마운트되기 전이나 업데이트되기 직전에 작업 수행하기
         - 컴포넌트가 나타날 때 콘솔에 "effect"가 나타난다.
         - 컴포넌트가 사라질 때 "cleanup"이 나타난다.
         - 뒷정리 함수가 호출될 때는 업데이트되기 직전의 값을 보여준다.
@@ -559,8 +560,8 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
                 };
              }, [name]);
              ```
-3. `useReducer`
-    - 새로운 상태 반환하기
+3. __`useReducer`__
+    1. 새로운 상태 반환하기
         ```javascript
         function reducer(state, action) {
           //action.type 값에 따라 다른 작업 수행
@@ -574,7 +575,7 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
           }
         }
         ```
-    - useReducer 사용하기
+    2. useReducer 사용하기
         - useReducer의 첫 번째 파라미터에는 리듀서 함수를 넣고, 두 번재 파라미터에는 해당 리듀서의 기본값 설정
         - state : 현재 가리키고 있는 상태
         - dispatch : `dispatch(action)` 형태로 리듀서 함수 호출
@@ -587,7 +588,7 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
             ```javascript
             <button onClick={() => dispatch({ type: "INCREMENT" })}>+1</button>
             ```
-    - 여러 개의 인풋 상태 관리하기
+    3. 여러 개의 인풋 상태 관리하기
         - 클래스형 컴포넌트에서 `input` 태그에 name 값을 할당하고 `e.target.name`을 참조하여 `setState`를 해준 것과 유사한 방법
         - 이벤트 객체가 지니고 있는 `e.target` 값 자체를 액션 값으로 사용하기
             ```javascript
@@ -614,14 +615,16 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
             <input name="name" value={state.name} onChange={handleChange} /> //state 값에 접근 할 때 state.name, name 둘 다 가능하다
             <input name="nickname" value={nickname} onChange={handleChange} />
             ```
-4. `useMemo`
+            
+4. __`useMemo`__
     - 첫 번째 파라미터 : 어떻게 연산할지 정의하는 함수
     - 두 번재 파라미터 : 배열 안에 넣은 값이 바뀌면 등록했던 함수 호출, 값이 바뀌지 않으면 이전 값 재사용
     - list 배열의 내용이 바뀔 때만 함수가 호출된다.
         ```javascript
         const avg = useMemo(() => getAverage(list), [list]);
         ```
-5. `useCallback`
+        
+5. __`useCallback`__
     - 첫 번째 파라미터 : 생성하고 싶은 함수
     - 두 번째 파라미터 : 어떤 값이 바뀌었을 때 함수를 새로 생성하는지 명시할 배열
     - 두 번째 파라미터가 빈 배열일 때는 컴포넌트가 처음 렌더링 될 때만 함수를 생성한다.
@@ -632,7 +635,8 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
             setNumber("");
         }, [number, list]); //number,list 값이 바뀌었을때만 함수 생성
         ```
-6. `useRef`
+        
+6. __`useRef`__
     - ref를 설정하면 useRef를 통해 만든 객체 안의 current 값이 실제 엘리먼트를 가리킨다.
         ```javascript
         const inputEl = useRef(null); //지역 변수에 담기
@@ -671,16 +675,16 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
 
 ### :mag: 개념 정리
 1. 스타일링 방식
-    - __일반 CSS(Cascading Style Sheet)__ : 가장 기본적인 방식
-    - __Sass(Syntactically Awesome Style Sheets)__ 
+    1. __일반 CSS(Cascading Style Sheet)__ : 가장 기본적인 방식
+    2. __Sass(Syntactically Awesome Style Sheets)__ 
         - 자주 사용되는 CSS 전처리기로 복잡한 작업을 쉽게 할 수 있도록 해준다.
         - 스타일 코드의 재활용성을 높여준다.
         - 코드의 가독성이 높아서 유지 보수에 용이하다.
         - 확장된 CSS 문법을 사용한다.
-    - __CSS Module__ 
+    3. __CSS Module__ 
         - 클래스 이름을 고유한 값 형태로 자동으로 만들어서 클래스 이름이 중첩되는 현상을 방지
         - 스타일을 직접 불러온 컴포넌트 내부에서만 작동하기 때문에 흔히 사용하는 단어로 이름을 지어도 된다.
-    - __styled-components__
+    4. __styled-components__
         - 스타일을 자바스크립트 파일에 내장하는 방식(CSS-in-JS) 중 하나
         - 스타일을 작성하는 동시에 해당 스타일이 적용된 컴포넌트를 만들 수 있다.
         - .css 또는 .scss 확장자 파일을 따로 만들지 않아도 된다.
@@ -697,8 +701,8 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
 
 ### :pencil: 문법 정리
 1. __Sass__
-    - .sass와 .scss의 주요 차이점 : 중괄호와 세미콜론의 사용 여부 (보통 .scss가 더 자주 사용된다.)
-        ```sass
+    1. .sass와 .scss의 주요 차이점 : 중괄호와 세미콜론의 사용 여부 (보통 .scss가 더 자주 사용된다.)
+        ```css
         //.sass
         $font-stack: Helvetica, sans-serif
         $primary-color: black
@@ -707,7 +711,8 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
             font: 100% $font-stack
             color: $primary-color
         ```
-         ```scss
+        
+        ```css
         //.scss
         $font-stack: Helvetica, sans-serif;
         $primary-color: black;
@@ -717,8 +722,8 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
             color: $primary-color;
         }
         ```
-    - 변수 및 믹스인은 utils 함수로 따로 분리하기
-        ```scss
+    2. 변수 및 믹스인은 utils 함수로 따로 분리하기
+        ```css
         // styles/utils.scss
         
         $red: #fa5252; //변수 사용하기
@@ -731,8 +736,8 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
           height: $calculated;
         }
         ```
-    - 기본 사용방법
-        ```scss
+    3. 기본 사용방법
+        ```css
         @import "./styles/utils.scss"; //분리한 utils 함수 불러오기
         
         .SassComponent {
@@ -755,20 +760,22 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
 2. __CSS Module__
     1. 클래스 이름 사용하기
         - `:global` 클래스의 경우 평상시처럼 문자열로 넣기
-        ```javascript
-        import styles from "./CSSModule.module.css";
-        ```
-        ```javascript
-        className={styles.[클래스 이름]}
-        ```
+            ````javascript
+            import styles from "./CSSModule.module.css"; 
+            (...)
+            className={styles.[클래스 이름]}
+            ````
+            
     2. 클래스 이름 여러개 사용하기
-        1. 템플릿 리터럴 사용하기 : `<div className={`${styles.wrapper} ${styles.inverted}`}>`
+        1. 템플릿 리터럴 사용하기 : ````<div className={`${styles.wrapper} ${styles.inverted}`}>````
         2. 템플릿 리터럴 사용하지 않기 : `<div className={[styles.wrapper, styles.inverted].join(' ')}>`
 
     3. classnames 라이브러리
         - CSS Module에서 함께 사용하면 여러 클래스를 적용할 때 편리하다.
         - 조건부로 클래스를 설정할 때 편리하다.
-        - 기본 사용법
+
+
+        1. 기본 사용법
             ```javascript
             import classNames from 'classnames';
             
@@ -780,7 +787,7 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
             const myClass = 'hello';
             classNemas('one', myClass, { world: true }); //'one hello world'
             ```
-        - bind 함수 적용 : 사전에 미리 styles에서 받아 온 후 사용하게끔 설정해 두고 `cx('클래스 이름', '클래스 이름2')` 형태로 사용 가능
+        2. bind 함수 적용 : 사전에 미리 styles에서 받아 온 후 사용하게끔 설정해 두고 `cx('클래스 이름', '클래스 이름2')` 형태로 사용 가능
             ```javascript
             import classNames from "classnames/bind";
             import styles from "./CSSModule.module.css";
@@ -792,8 +799,8 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
                   안녕하세요, 저는 <span className="somthing">CSS Module!</span>
             </div>
             ```
-        - Sass와 함께 사용하기 : 파일 이름 뒤에 `module.scss` 확장자를 붙이면 CSSModule을 사용할 수 있다.
-        - 일반 .css/.scss 파일에서 CSSModule 사용하기 : `:local`
+        3. Sass와 함께 사용하기 : 파일 이름 뒤에 `module.scss` 확장자를 붙이면 CSSModule을 사용할 수 있다.
+        4. 일반 .css/.scss 파일에서 CSSModule 사용하기 : `:local`
             ```css
             :local .wrapper{
             /* 스타일 */
@@ -807,23 +814,25 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
             ```
             
 4. __styled-components__
-    - Tagged 템플릿 리터럴을 사용한다.
+    1. Tagged 템플릿 리터럴을 사용한다.
         - 템플릿 안에 자바스크립트 객체나 함수를 전달할 때 온전히 추출 가능하다. -> styled-components로 만든 컴포넌트의 props를 스타일 쪽에서 쉽게 접근
     
-    - 스타일링된 엘리먼트 만들기
-        - `styled.button`, `styled.input` 같은 형태로 뒤에 태그명을 넣어준다. 
-            ```javascript
+    2. 스타일링된 엘리먼트 만들기
+        1. `styled.button`, `styled.input` 같은 형태로 뒤에 태그명을 넣어준다. 
+            ````javascript
             import styled from 'styled-components';
 
             const Mycomponent = styled.div`
                 font-size: 2rem;
             `
-            ```
+            ````
+            
             ```javascript
             <MyComponrnt>Hello</MyComponent>
             ```
-        - 태그명이 유동적이거나 특정 컴포넌트 자체에 스타일링 하기
-            ```javascript
+            
+        2. 태그명이 유동적이거나 특정 컴포넌트 자체에 스타일링 하기
+            ````javascript
             //태그의 타입을 styled 함수의 인자로 전달
             const MyInput = styled('input')`
                 background : gray;
@@ -833,30 +842,32 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
             const StyledLink = styled(Link)`
                 color : blue;
             `
-            ```
+            ````
             _참고) 컴포넌트를 styled의 파라미터에 넣는 경우에는 해당 컴포넌트에 className props를 최상위 DOM의 className 값으로 설정하는 작업이 내부적으로 되어 있어야 한다._
+             ````javascript
+             const Sample = ({className}) => {
+                return <div className={className}>Sample</div>;
+             };
                 
-                ```javascript
-                const Sample = ({className}) => {
-                    return <div className={className}>Sample</div>;
-                };
+             const StyledSample = styled(Sample)`
+                font-size:2rem;
+             `;
+             ````    
+            
                 
-                const StyledSample = styled(Sample)`
-                    font-size:2rem;
-                `;
-                ```
-    - 스타일에서 props 조회하기
-        ```javascript
+    3. 스타일에서 props 조회하기
+        ````javascript
         const Box = styled.div`
           /* props 로 넣어준 값을 직접 전달해줄 수 있다. */
           background: ${(props) => props.color || "blue"};
           padding: 1rem;
           display: flex;
         `;
-        ```
-        ```javascript
+        ````
+        ````javascript
         <Box color="black">(...)</Box>
-        ```
+        ````
+        
 
 
 
