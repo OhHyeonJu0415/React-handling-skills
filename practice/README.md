@@ -775,6 +775,30 @@ useState, useEffect 등의 기능을 제공하여 기존 함수형 컴포넌트�
             classNemas('one', myClass, { world: true }); //'one hello world'
             ```
         - bind 함수 적용 : 사전에 미리 styles에서 받아 온 후 사용하게끔 설정해 두고 `cx('클래스 이름', '클래스 이름2')` 형태로 사용 가능
+            ```javascript
+            import classNames from "classnames/bind";
+            import styles from "./CSSModule.module.css";
+
+            const cx = classNames.bind(styles); //미리 styles에서 클래스를 받아 오도록 설정
+            ```
+            ```javascript
+            <div className={cx("wrapper", "inverted")}>
+                  안녕하세요, 저는 <span className="somthing">CSS Module!</span>
+            </div>
+            ```
+        - Sass와 함께 사용하기 : 파일 이름 뒤에 `module.scss` 확장자를 붙이면 CSSModule을 사용할 수 있다.
+        - 일반 .css/.scss 파일에서 CSSModule 사용하기 : `:local`
+            ```css
+            :local .wrapper{
+            /* 스타일 */
+            }
+            
+            :local{
+                .wrapper{
+                /*스타일*/
+                }
+            }
+            ```
 
 
 
