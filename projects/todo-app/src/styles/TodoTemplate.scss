@@ -1,0 +1,22 @@
+.TodoTemplate {
+  width: 834px;
+  margin: auto;
+  overflow: hidden;
+  background-color: white;
+  border-radius: 38px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  .app-title {
+    font-family: "SUITE-H";
+    color: white;
+    background: #9690f1;
+    height: 80px;
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
