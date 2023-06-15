@@ -59,24 +59,42 @@
 ## 3. 기능 구현하기
 
 1. __todos 상태 사용하기 (App -> TodoList -> TodoListItem)__
- * 일정 항목들은 APP 컴포넌트에서 관리
- * App -> TodoList : _props_ 로 전달
- * TodoList -> TodoListItem : `map` 함수 활용
-   ```javascript
-    {/* 배열 변환 후 렌더링 */}
-      {todos.map((todo) => (
-        <TodoListItem todo={todo} key={todo.id} />
-      ))}
-   ```
- * TodoListItem : 상태에 따른 조건부 렌더링
-   ```javascript
-   const { text, checked } = todo;
-   ...
+   * 일정 항목들은 APP 컴포넌트에서 관리
+   * App -> TodoList : _props_ 로 전달
+   * TodoList -> TodoListItem : `map` 함수 활용 _([참고사항 1번](#참고사항))_
+       ```javascript
+     {/* 배열 변환 후 렌더링 */}
+       {todos.map((todo) => (
+         <TodoListItem todo={todo} key={todo.id} />
+       ))}
+       ```
+   * TodoListItem : 상태에 따른 조건부 렌더링
+      ```javascript
+      const { text, checked } = todo;
+      ...
       <div className={cn("checkbox", { checked })}>
         {checked ? <MdCheckCircle /> : <MdOutlineCircle />}
         <div className="text">{text}</div>
       </div>
-   ```
+      ```
 
 
+2. __항목 추가 기능 구현하기__
+   1. TodoInsert value 상태 관리하기 : text 값 변경 감지하기
+   2. todos 배열에 새 객체 추가하기
+      * 고유 id 값을 useRef로 관리 _([참고사항 3번](#참고사항))_
+      * 객체 추가 함수 onInsert를 TodoInsert 컴포넌트의 props로 설정하기
+   3. TodoInsert에서 onSubmit 이벤트 설정하기 _([참고사항 4번](#참고사항))_
+      * submit 할 때 현재 value 값으로 객체 추가 함수 호출하기
+      * `e.preventDefault()`으로 submit의 새로고침 방지하기
 
+
+---
+
+## 참고사항
+1. 여러 종류의 값을 전달해야 하는 경우는 객체를 통째로 전달해야 성능 최적화 시 편리하다. <br>
+   _ex) TodoList에서 TodoListItem로 props 전달하기_
+2. props로 전달해야 할 함수를 만들 때는 컴포넌트 성능을 아끼기 위해 `useCallback`으로 함수 감싸는 것을 습관화 할 것!
+3. 값이 화면에 보이지도 않고, 값의 변경에 따라 컴포넌트 리렌더링이 필요 없을 땐 `ref`를 사용한다.
+   _ex) todos 배열의 고유 id 값을 ref로 관리하기_
+4. 버튼 클릭 이벤트가 아니라 `form`과 `submit` 이벤트를 사용하는 이유는 클릭 뿐만 아니라 `Enter`로도 항목을 추가하게 하기 위해서다.
