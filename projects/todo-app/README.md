@@ -58,7 +58,7 @@
 
 ## 3. 기능 구현하기
 
-1. __todos 상태 사용하기 (App -> TodoList -> TodoListItem)__
+#### 1. todos 상태 사용하기 (App -> TodoList -> TodoListItem)
    * 일정 항목들은 APP 컴포넌트에서 관리
    * App -> TodoList : _props_ 로 전달
    * TodoList -> TodoListItem : `map` 함수 활용 _([참고사항 1번](#참고사항))_
@@ -79,11 +79,11 @@
       ```
 
 
-2. __항목 추가 기능 구현하기__
+#### 2. 항목 추가 기능
    1. TodoInsert value 상태 관리하기 : text 값 변경 감지하기
    2. todos 배열에 새 객체 추가하기
-      * 고유 id 값을 useRef로 관리 _([참고사항 3번](#참고사항))_
-      * 객체 추가 함수 onInsert를 TodoInsert 컴포넌트의 props로 설정하기
+      * 고유 id 값을 `useRef`로 관리 _([참고사항 3번](#참고사항))_
+      * 객체 추가 함수 `onInsert`를 TodoInsert 컴포넌트의 props로 설정하기
          ```javascript
          const onInsert = useCallback(
            (text) => {
@@ -119,11 +119,30 @@
           );
          ```
 
-3. __지우기 기능 구현하기__
-   1. todos 배열에서 id로 항목 지우기 : onRemove 함수에서 `filter` 함수를 사용하여 같은 id를 가진 항목 지우기 _([참고사항 5번](#참고사항))_
+
+#### 3. 지우기 기능
+   1. todos 배열에서 id로 항목 지우기 : `onRemove` 함수에서 `filter` 함수를 사용하여 같은 id를 가진 항목 지우기 _([참고사항 5번](#참고사항))_
    2. TodoListItem에서 삭제 함수 호출하기
-      * App -> TodoList -> TodoListItem으로 onRemove 전달하기
-      * 삭제 버튼 클릭시 onRemove 함수 호출하기
+      * App -> TodoList -> TodoListItem으로 `onRemove` 전달하기
+      * 삭제 버튼 클릭시 `onRemove` 함수 호출하기
+
+
+#### 4. 수정 기능
+   1. onToggle 기능 구현하기 : `map` 활용 _([참고사항 6번](#참고사항))_
+      ```javascript
+      const onToggle = useCallback(
+        (id) => {
+          setTodos(
+            todos.map((todo) =>
+              todo.id === id ? { ...todo, checked: !todo.checked } : todo
+            )
+          );
+        },
+        [todos]
+      );
+      ```
+   2. TodoList -> TodoListItem 으로 `onToggle` 함수 전달하기
+   3. checkbox 클릭시 완료 여부를 변경할 `onToggle` 함수 실행하기
 
 ---
 
@@ -135,3 +154,4 @@
    _ex) todos 배열의 고유 id 값을 ref로 관리하기_
 4. 버튼 클릭 이벤트가 아니라 `form`과 `submit` 이벤트를 사용하는 이유는 클릭 뿐만 아니라 `Enter`로도 항목을 추가하게 하기 위해서다.
 5. 리액트 컴포넌트에서 배열의 불변성을 지키면서 배열의 원소를 제거할 때는 배열 내장 함수 `filter`를 사용한다.
+6. 불변성을 유지하면서 특정 배열 원소를 업데이트할 때는 배열 내장 함수 `map`을 사용한다.
