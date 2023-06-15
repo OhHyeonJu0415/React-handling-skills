@@ -84,10 +84,46 @@
    2. todos 배열에 새 객체 추가하기
       * 고유 id 값을 useRef로 관리 _([참고사항 3번](#참고사항))_
       * 객체 추가 함수 onInsert를 TodoInsert 컴포넌트의 props로 설정하기
+         ```javascript
+         const onInsert = useCallback(
+           (text) => {
+             //추가할 객체
+             const todo = {
+               id: nextId.current,
+               text,
+               checked: false,
+             };
+       
+             //객체 추가하기 (불변성 유지하기)
+             setTodos(todos.concat(todo));
+       
+             //nextId 1씩 추가하기
+             nextId.current += 1;
+           },
+           [todos]
+         );
+         ```
    3. TodoInsert에서 onSubmit 이벤트 설정하기 _([참고사항 4번](#참고사항))_
       * submit 할 때 현재 value 값으로 객체 추가 함수 호출하기
       * `e.preventDefault()`으로 submit의 새로고침 방지하기
+         ```javascript
+          const onSubmit = useCallback(
+            (e) => {
+              onInsert(value);
+              setValue("");  //value 값 초기화
+        
+              //submit 이벤트의 새로고침 방지
+              e.preventDefault();
+            },
+            [onInsert, value]
+          );
+         ```
 
+3. __지우기 기능 구현하기__
+   1. todos 배열에서 id로 항목 지우기 : onRemove 함수에서 `filter` 함수를 사용하여 같은 id를 가진 항목 지우기 _([참고사항 5번](#참고사항))_
+   2. TodoListItem에서 삭제 함수 호출하기
+      * App -> TodoList -> TodoListItem으로 onRemove 전달하기
+      * 삭제 버튼 클릭시 onRemove 함수 호출하기
 
 ---
 
@@ -98,3 +134,4 @@
 3. 값이 화면에 보이지도 않고, 값의 변경에 따라 컴포넌트 리렌더링이 필요 없을 땐 `ref`를 사용한다.
    _ex) todos 배열의 고유 id 값을 ref로 관리하기_
 4. 버튼 클릭 이벤트가 아니라 `form`과 `submit` 이벤트를 사용하는 이유는 클릭 뿐만 아니라 `Enter`로도 항목을 추가하게 하기 위해서다.
+5. 리액트 컴포넌트에서 배열의 불변성을 지키면서 배열의 원소를 제거할 때는 배열 내장 함수 `filter`를 사용한다.
