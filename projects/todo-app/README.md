@@ -54,3 +54,29 @@
   </tr>
 </table>
 
+---
+
+## 3. 기능 구현하기
+
+1. __todos 상태 사용하기 (App -> TodoList -> TodoListItem)__
+ * 일정 항목들은 APP 컴포넌트에서 관리
+ * App -> TodoList : _props_ 로 전달
+ * TodoList -> TodoListItem : `map` 함수 활용
+   ```javascript
+    {/* 배열 변환 후 렌더링 */}
+      {todos.map((todo) => (
+        <TodoListItem todo={todo} key={todo.id} />
+      ))}
+   ```
+ * TodoListItem : 상태에 따른 조건부 렌더링
+   ```javascript
+   const { text, checked } = todo;
+   ...
+      <div className={cn("checkbox", { checked })}>
+        {checked ? <MdCheckCircle /> : <MdOutlineCircle />}
+        <div className="text">{text}</div>
+      </div>
+   ```
+
+
+
