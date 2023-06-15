@@ -1,0 +1,11 @@
+@font-face {
+  font-family: "SUITE";
+  font-style: normal;
+  src: url("./SUITE-Medium.woff2") format(woff2);
+}
+
+@font-face {
+  font-family: "SUITE";
+  font-style: bold;
+  src: url("./SUITE-Heavy.woff2") format(woff2);
+}
