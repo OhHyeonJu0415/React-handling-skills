@@ -3,24 +3,39 @@ import TodoTemplate from "./components/TodoTemplate";
 import TodoInsert from "./components/TodoInsert";
 import TodoList from "./components/TodoList";
 
-const App = () => {
-  const [todos, setTodos] = useState([
-    {
-      id: 1, //고유 id
-      text: "리액트의 기초 알아보기", //sodyd
-      checked: true, //완료 여부
-    },
-    {
-      id: 2,
-      text: "리액트의 기초 알아보기",
-      checked: true,
-    },
-    {
-      id: 3,
-      text: "리액트의 기초 알아보기",
+function createBulkTodos() {
+  const array = [];
+  for (let i = 1; i <= 2500; i++) {
+    array.push({
+      id: i,
+      text: `할 일 ${i}`,
       checked: false,
-    },
-  ]);
+    });
+  }
+
+  return array;
+}
+
+const App = () => {
+  const [todos, setTodos] = useState(createBulkTodos);
+
+  // const [todos, setTodos] = useState([
+  //   {
+  //     id: 1, //고유 id
+  //     text: "리액트의 기초 알아보기", //sodyd
+  //     checked: true, //완료 여부
+  //   },
+  //   {
+  //     id: 2,
+  //     text: "리액트의 기초 알아보기",
+  //     checked: true,
+  //   },
+  //   {
+  //     id: 3,
+  //     text: "리액트의 기초 알아보기",
+  //     checked: false,
+  //   },
+  // ]);
 
   //ref를 사용하여 변수(고윳값으로 사용될 id) 담기
   const nextId = useRef(4);
@@ -45,7 +60,7 @@ const App = () => {
 
   const onRemove = useCallback(
     (id) => {
-      setTodos(todos.filter((todo) => todo.id != id));
+      setTodos(todos.filter((todo) => todo.id !== id));
     },
     [todos]
   );
