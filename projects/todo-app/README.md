@@ -4,7 +4,6 @@
 
 
 ## 1. 디자인하기
-<img src="https://img.shields.io/badge/adobexd-FF61F6?style=for-the-badge&logo=adobexd&logoColor=white">
 
 <table>
  <tr>
@@ -143,6 +142,43 @@
       ```
    2. TodoList -> TodoListItem 으로 `onToggle` 함수 전달하기
    3. checkbox 클릭시 완료 여부를 변경할 `onToggle` 함수 실행하기
+
+---
+
+## 4. 컴포넌트 성능 최적화
+
+#### 1. 성능 모니터링
+   1. 많은 데이터 렌더링하기
+      - `usestate`의 기본값에 함수를 넣어 데이터 2500개 자동 생성하기
+      - `createBulkTodos()`라고 작성하면 리렌더링될 때마다 함수가 호출되지만, 아래처럼 파라미터 형태로 넣어주면 처음 렌더링될 때만 함수가 실행된다.
+        ```javascript
+        function createBulkTodos() {
+          const array = [];
+          for (let i = 1; i <= 2500; i++) {
+            array.push({
+              id: i,
+              text: `할 일 ${i}`,
+              checked: false,
+            });
+          }
+        
+          return array;
+        }
+
+        (...)
+        const [todos, setTodos] = useState(createBulkTodos);
+        ```
+        
+   2. 성능 모니터링 : 개발자 도구의 Performance 탭에서 측정
+
+      <img width="50%" src="https://github.com/OhHyeonJu0415/React-handling-skills/assets/71424881/5bc2ad7c-7309-48e0-bcb9-3c3f84c8d489"/>
+
+   3. 느려지는 원인 분석
+      1. '할 일 1' 항목 체크시 App 컴포넌트의 state 변경
+      2. App 컴포넌트 리렌더링
+      3. 자식 컴포넌트인 TodoList 컴포넌트도 리렌더링
+      4. '할 일 1' 항목은 리렌더링 되는게 맞지만 '할 일 2~2500'까지 리렌더링 되면서 느려짐 => 성능 저하!
+
 
 ---
 
