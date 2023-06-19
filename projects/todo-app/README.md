@@ -171,7 +171,7 @@
         
    2. 성능 모니터링 : 개발자 도구의 Performance 탭에서 측정
 
-      <img width="50%" src="https://github.com/OhHyeonJu0415/React-handling-skills/assets/71424881/5bc2ad7c-7309-48e0-bcb9-3c3f84c8d489"/>
+      <img width="50%" src="https://github.com/OhHyeonJu0415/React-handling-skills/assets/71424881/7b129cea-406a-47bb-84d0-6f7af5c4f60c"/>
 
    3. 느려지는 원인 분석
       1. '할 일 1' 항목 체크시 App 컴포넌트의 state 변경
